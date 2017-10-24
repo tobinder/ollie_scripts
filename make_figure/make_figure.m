@@ -1,22 +1,23 @@
-function make_figure(segment,frame,min_depth,max_depth,max_length,output_folder)
-tic
-csarp_folder = 'Z:\Make_figures\';
-plot_option = 1;   %0: Show consecutive parts of the whole scene with defined length (max_length)
-                   %1: Show selected part of the scene (from min_along_track to max_along_track)
-if nargin==0
-    segment = '20160629_03';
-    frame = 1;
-    min_depth = 0;
-    max_depth = 3200;
-    max_length = 20;        %Input either a number or "whole" in case you want the whole scene to be shown
-    min_along_track = 9.8;   %start of along track to be shown
-    max_along_track = 30;   %end of along track to be shown, input either a number or 'end' 
-    output_folder = 'Z:\Make_figures\';
-end
-                   
-%----------------------
+function make_figure(csarp_folder,segment,frame,min_depth,max_depth,max_length,output_folder,plot_option)
 
-in_filename = sprintf('%s%s/Data_%s_%03d.mat',csarp_folder,segment,segment,frame);
+if (ischar(frame))
+  frame=str2num(frame);
+end
+if (ischar(min_depth))
+  min_depth=str2num(min_depth);
+end
+if (ischar(max_depth))
+  max_depth=str2num(max_depth);
+end
+if (ischar(max_length))
+  max_length=str2num(max_length);
+end
+if (ischar(plot_option))
+  plot_option=str2num(plot_option);
+end
+
+%in_filename = sprintf('%s%s/Data_%s_%03d.mat',csarp_folder,segment,segment,frame);
+in_filename = sprintf('%s/Data_%s_%03d.mat',csarp_folder,segment,frame);
 
 %Load data and filter
 csarp_in = load(in_filename);
@@ -60,29 +61,32 @@ switch plot_option
 end
 
 %Load information on ice: depth, density, velocity
-ice_parameters = load('pRES001.vel');
-ice_parameters = [ice_parameters,zeros(length(ice_parameters),1)]; %add a column: time the radar waves needs to the specified depth and back
-ice_parameters(1,4) = 0; %Initialize 
-for n=2:length(ice_parameters)
-    ice_parameters(n,4) = ice_parameters(n-1,4) + 2/(ice_parameters(n-1,3)*1e6);
-end
+%ice_parameters = load('pRES001.vel');
+%ice_parameters = [ice_parameters,zeros(length(ice_parameters),1)]; %add a column: time the radar waves needs to the specified depth and back
+%ice_parameters(1,4) = 0; %Initialize
+%for n=2:length(ice_parameters)
+%    ice_parameters(n,4) = ice_parameters(n-1,4) + 2/(ice_parameters(n-1,3)*1e6);
+%end
+
+h_fig = figure; 
 
 %Now plot...
 for plot_ind = 1:number_plots
             
     rlines = start(plot_ind):stop(plot_ind);
     %Get depth and find limits in vertical direction
-    depth = zeros(length(csarp_in.Time),1);
-    for n=1:length(csarp_in.Time)
-        idx=find((csarp_in.Time(n)-csarp_in.Surface(rlines(1)))>ice_parameters(:,4),1,'last');
-        if isempty(idx)
-            depth(n) = (csarp_in.Time(n) - csarp_in.Surface(rlines(1)))* 1/sqrt(e0*u0) /2; %e_r of air assumend to be 1
-        else
-            depth(n) = ice_parameters(idx,1) + ice_parameters(idx,3)*1e6 ...
-                *((csarp_in.Time(n) - csarp_in.Surface(rlines(1)))-ice_parameters(idx,4))/2;
-        end
-    end
-    %depth = (csarp_in.Time - csarp_in.Surface(rlines(1)))* 1/sqrt(e0*u0*er_ice) /2;
+    %depth = zeros(length(csarp_in.Time),1);
+    %for n=1:length(csarp_in.Time)
+    %    idx=find((csarp_in.Time(n)-csarp_in.Surface(rlines(1)))>ice_parameters(:,4),1,'last');
+    %    if isempty(idx)
+    %        depth(n) = (csarp_in.Time(n) - csarp_in.Surface(rlines(1)))* 1/sqrt(e0*u0) /2; %e_r of air assumend to be 1
+    %    else
+    %        depth(n) = ice_parameters(idx,1) + ice_parameters(idx,3)*1e6 ...
+    %            *((csarp_in.Time(n) - csarp_in.Surface(rlines(1)))-ice_parameters(idx,4))/2;
+    %    end
+    %end
+    depth = (csarp_in.Time - csarp_in.Surface(rlines(1)))* 1/sqrt(e0*u0*er_ice) /2;
+
     depth_start = find(depth<=min_depth,1,'last');
     if (isempty(depth_start))
         depth_start = 1;
@@ -94,7 +98,7 @@ for plot_ind = 1:number_plots
 
     rbins = depth_start:depth_stop;
   
-    h_fig = figure; clf;
+    clf;
 
     imagesc(along_track(rlines)-along_track(rlines(1)), ...
         depth(rbins), ...
@@ -112,5 +116,5 @@ for plot_ind = 1:number_plots
     filename = sprintf('%s%s_%03d_%02d.png',output_folder,segment,frame,plot_ind);
     saveas(h_fig,filename);
 end
-toc
+
 return;
