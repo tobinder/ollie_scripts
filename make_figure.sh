@@ -2,7 +2,7 @@
 #SBATCH -t 0:05:00
 #SBATCH --qos=short
 
-MCRROOT=$HOME"/local/MATLAB/MATLAB_Runtime/v92"
+MCRROOT=$HOME"/local/MATLAB/MATLAB_Runtime/v93"
 LD_LIBRARY_PATH=.:${MCRROOT}/runtime/glnxa64
 LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${MCRROOT}/bin/glnxa64
 LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${MCRROOT}/sys/os/glnxa64
@@ -15,6 +15,9 @@ min_depth=500
 max_depth=1200
 max_length=5
 output_folder='/home/ollie/miller/'
+plot_option=0
+#0: Show consecutive parts of the whole scene with defined length (max_length)
+#1: Show selected part of the scene (from min_along_track to max_along_track)
 
-srun $HOME"/v92_executables/make_figure" $csarp_folder $segment $frame $min_depth $max_depth $max_length $output_folder
+srun $HOME"/v93_executables/make_figure" $csarp_folder $segment $frame $min_depth $max_depth $max_length $output_folder
 exit
