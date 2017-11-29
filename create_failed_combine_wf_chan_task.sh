@@ -10,7 +10,7 @@ echo "SLURM_JOBID: "$SLURM_JOBID
 echo "SLURM_ARRAY_TASK_ID: "$SLURM_ARRAY_TASK_ID
 echo "SLURM_ARRAY_JOB_ID: "$SLURM_ARRAY_JOB_ID
 
-MCRROOT=$HOME"/local/MATLAB/MATLAB_Runtime/v92"
+MCRROOT=$HOME"/local/MATLAB/MATLAB_Runtime/v93"
 LD_LIBRARY_PATH=.:${MCRROOT}/runtime/glnxa64
 LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${MCRROOT}/bin/glnxa64
 LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${MCRROOT}/sys/os/glnxa64
@@ -23,5 +23,5 @@ chunk=$(cat 'combine_'${task_id}'.out' | grep 'CHUNK:' | awk -F ':' '{ print $2 
 echo "FRAME: "$frm 
 echo "CHUNK: "$chunk
 
-srun $HOME"/v92_executables/combine_wf_chan_ollie" $1 $frm $chunk
+srun $HOME"/v93_executables/combine_wf_chan_ollie" $1 $frm $chunk
 exit

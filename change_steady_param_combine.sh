@@ -1,5 +1,5 @@
 #!/bin/sh
-MCRROOT=$HOME"/local/MATLAB/MATLAB_Runtime/v92"
+MCRROOT=$HOME"/local/MATLAB/MATLAB_Runtime/v93"
 LD_LIBRARY_PATH=.:${MCRROOT}/runtime/glnxa64
 LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${MCRROOT}/bin/glnxa64
 LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${MCRROOT}/sys/os/glnxa64
@@ -85,5 +85,5 @@ do
         ch24=1;
     fi
 done
-eval $HOME"/v92_executables/change_steady_param_combine" $1 $2 $3 $4 $ch1 $ch2 $ch3 $ch4 $ch5 $ch6 $ch7 $ch8 $ch9 $ch10 $ch11 $ch12 $ch13 $ch14 $ch15 $ch16 $ch17 $ch18 $ch19 $ch20 $ch21 $ch22 $ch23 $ch24
+eval $HOME"/v93_executables/change_steady_param_combine" $1 $2 $3 $4 $ch1 $ch2 $ch3 $ch4 $ch5 $ch6 $ch7 $ch8 $ch9 $ch10 $ch11 $ch12 $ch13 $ch14 $ch15 $ch16 $ch17 $ch18 $ch19 $ch20 $ch21 $ch22 $ch23 $ch24
 exit

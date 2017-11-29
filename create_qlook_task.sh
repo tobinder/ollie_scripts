@@ -11,7 +11,7 @@ echo "SLURM_JOBID: "$SLURM_JOBID
 echo "SLURM_ARRAY_TASK_ID: "$SLURM_ARRAY_TASK_ID
 echo "SLURM_ARRAY_JOB_ID: "$SLURM_ARRAY_JOB_ID
 
-MCRROOT=$HOME"/local/MATLAB/MATLAB_Runtime/v92"
+MCRROOT=$HOME"/local/MATLAB/MATLAB_Runtime/v93"
 LD_LIBRARY_PATH=.:${MCRROOT}/runtime/glnxa64
 LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${MCRROOT}/bin/glnxa64
 LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${MCRROOT}/sys/os/glnxa64
@@ -23,5 +23,5 @@ brk=$(cat ${3} | awk -v line=$(($SLURM_ARRAY_TASK_ID + 1)) '{if (NR== line) prin
 echo "FRAME: " $frm
 echo "CHUNK: " $brk
 
-srun $HOME"/v92_executables/get_heights_task_ollie" $1 $2 $frm $brk
+srun $HOME"/v93_executables/get_heights_task_ollie" $1 $2 $frm $brk
 exit
