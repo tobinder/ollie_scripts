@@ -1,4 +1,4 @@
-function make_figure_3d(csarp_folder,segment,frame,min_depth,max_depth,max_length,output_folder,plot_option)
+function make_figure_3d(csarp_folder,segment,frame,min_depth,max_depth,max_length,min_along_track,max_along_track,output_folder,plot_option)
 
 if (ischar(frame))
   frame=str2num(frame);
@@ -10,14 +10,24 @@ if (ischar(max_depth))
   max_depth=str2num(max_depth);
 end
 if (ischar(max_length))
-  max_length=str2num(max_length);
+    if (~strcmp(max_length,'whole'))
+        max_length=str2num(max_length);
+    end
+end
+if (ischar(min_along_track))
+  min_along_track=str2num(min_along_track);
+end
+if (ischar(max_along_track))
+    if (~strcmp(max_along_track,'end'))
+        max_along_track=str2num(max_along_track);
+    end
 end
 if (ischar(plot_option))
   plot_option=str2num(plot_option);
 end
 
-%in_filename = sprintf('%s%s/Data_img_03_%s_%03d.mat',csarp_folder,segment,segment,frame);
-in_filename = sprintf('%s/Data_img_03_%s_%03d.mat',csarp_folder,segment,frame);
+in_filename = sprintf('%s%s/Data_img_03_%s_%03d.mat',csarp_folder,segment,segment,frame);
+%in_filename = sprintf('%s/Data_img_03_%s_%03d.mat',csarp_folder,segment,frame);
 
 %Load data and check whether 3d information is available
 csarp_in = load(in_filename);
