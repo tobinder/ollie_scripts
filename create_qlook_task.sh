@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH -t 0:10:00
+#SBATCH -t 0:20:00
 #SBATCH --qos=short
 #SBATCH -p smp
 #SBATCH --mem-per-cpu=4608
