@@ -2,7 +2,7 @@
 #SBATCH -t 0:05:00
 #SBATCH --qos=short
 
-MCRROOT=$HOME"/local/MATLAB/MATLAB_Runtime/v93"
+MCRROOT=$HOME"/local/MATLAB/MATLAB_Runtime/v94"
 LD_LIBRARY_PATH=.:${MCRROOT}/runtime/glnxa64
 LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${MCRROOT}/bin/glnxa64
 LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${MCRROOT}/sys/os/glnxa64
@@ -22,5 +22,5 @@ plot_option=0
 #1: Show selected part of the scene (from min_along_track to max_along_track)
 #2: Create full resolution image of entire frame and coord/times txt files
 
-srun $HOME"/v93_executables/make_figure" $csarp_folder $segment $frame $min_depth $max_depth $max_length $min_along_track $max_along_track $output_folder $plot_option
+srun $HOME"/v94_executables/make_figure" $csarp_folder $segment $frame $min_depth $max_depth $max_length $min_along_track $max_along_track $output_folder $plot_option
 exit

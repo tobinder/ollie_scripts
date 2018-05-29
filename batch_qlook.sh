@@ -1,7 +1,7 @@
 #!/bin/bash
 #This script performs qlook processing of UWB radar data.
-date=
-segment=
+date=20160629
+segment=03
 file=$HOME'/jobs/qlook_'$date'_'$segment'_parameters.txt'
 static_param=$HOME'/jobs/qlook_'$date'_'$segment'_static_param.mat'
 dynamic_param=$HOME'/jobs/qlook_'$date'_'$segment'_dynamic_param.mat'
