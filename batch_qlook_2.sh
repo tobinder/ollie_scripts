@@ -1,11 +1,11 @@
 #!/bin/bash
 #This script checks if every create_qlook_task.sh job was completed. If not, the jobs are restartet. As soon as all jobs have been completed, create_qlook_task2.sh is called.
-date=
-segment=
+date=20180411
+segment=05
 static_param=$HOME'/jobs/qlook_'$date'_'$segment'_static_param.mat'
 dynamic_param=$HOME'/jobs/qlook_'$date'_'$segment'_dynamic_param.mat'
 file_tmp="failed_qlook_jobs_tmp.txt"
-counter='run1'
+counter='run2'
 
 n_jobs=$(sudo get_my_jobs.sh | grep 'ql_'$counter | wc -l)
 n_completed=$(sudo get_my_jobs.sh | grep 'ql_'$counter | grep 'COMPLETED' | wc -l)

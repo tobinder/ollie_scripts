@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --time=08:00:00
-#SBATCH --array=1-24
-#SBATCH --output=/home/ollie/ndoerr/extract_%A_%a.out
+#SBATCH --array=1-8
+#SBATCH --output=$HOME/extract_%A_%a.out
 #SBATCH -p smp
 
 ##Enlarge the stacksize, just to be on the safe side.
