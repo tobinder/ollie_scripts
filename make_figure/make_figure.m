@@ -1,4 +1,12 @@
-function make_figure(csarp_folder,segment,frame,min_depth,max_depth,max_length,min_along_track,max_along_track,output_folder,plot_option)
+function make_figure(csarp_folder,segment,frame,min_depth,max_depth,max_length,min_along_track,max_along_track,output_folder,plot_option,shift)
+
+if ~exist('shift','var')
+  shift = 0;
+else
+  if (ischar(shift))
+  shift=str2num(shift);
+  end  
+end
 
 if (ischar(frame))
   frame=str2num(frame);
@@ -75,7 +83,7 @@ switch plot_option
         filename = sprintf('%s%s_%03d_coord.txt',output_folder,segment,frame);
         fid = fopen(filename,'w');
         %fprintf(fid,'%14s %14s %6s %8s\n', 'Lon', 'Lat', 'Shot', 'km');
-        fprintf(fid,'%22s\t%8s\t%8s\t%5s\t%5s\t%7s\n', 'Date/Time (GPS)', 'Latitude', 'Longitude', 'km', 'Shot', 'Surface TWT (µs)');
+        fprintf(fid,'%22s\t%8s\t%8s\t%5s\t%5s\t%7s\n', 'Date/Time (GPS)', 'Latitude', 'Longitude', 'km', 'Shot', 'Surface TWT (us)');
         for idx = 1:size(along_track,2)
             %fprintf(fid,'%14.6f %14.6f %6d %8.3f\n', csarp_in.Longitude(idx), csarp_in.Latitude(idx), idx, along_track(idx));
             timestring = datetime(datetime(719529+csarp_in.GPS_time(idx)/(60*60*24),'ConvertFrom','datenum'),'Format','yyyy-MM-dd''T''HH:mm:ss');
@@ -145,7 +153,7 @@ for plot_ind = 1:number_plots
         %create times file
         filename = sprintf('%s%s_%03d_times.txt',output_folder,segment,frame);
         fid = fopen(filename,'w');
-        fprintf(fid,'%5s\t%7s\n', 'Pixel', 'TWT (µs)');
+        fprintf(fid,'%5s\t%7s\n', 'Pixel', 'TWT (us)');
         y_koord=0;
 
         for idx = depth_start:5:depth_stop
@@ -159,10 +167,13 @@ for plot_ind = 1:number_plots
 
         max_intensity=max(max(lp(csarp_in.Data(depth_start:depth_stop,1:size(csarp_in.Data,2)))));
         diff_intensity=max_intensity-min(min(lp(csarp_in.Data(depth_start:depth_stop,1:size(csarp_in.Data,2)))));
-
-        for x_ind = depth_start:depth_stop
-            for y_ind = 1:size(csarp_in.Data,2)
-                image(x_ind-depth_start+1,y_ind)=(max_intensity-lp(csarp_in.Data(x_ind,y_ind)))/diff_intensity;
+        
+        for y_ind = 1:size(csarp_in.Data,2)
+            if (shift) x_correction = floor((csarp_in.Elevation(y_ind)-csarp_in.Elevation(1))/((csarp_in.Time(2)-csarp_in.Time(1))*c/2));
+            else x_correction = 0;
+            end
+            for x_ind = depth_start:depth_stop
+                image(x_ind-depth_start+1,y_ind)=(max_intensity-lp(csarp_in.Data(x_ind+x_correction,y_ind)))/diff_intensity;
             end
         end
 

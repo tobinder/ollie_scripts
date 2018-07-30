@@ -18,9 +18,10 @@ min_along_track=0
 max_along_track='end'
 output_folder='/home/ollie/miller/'
 plot_option=0
+shift=0
 #0: Show consecutive parts of the whole scene with defined length (max_length)
 #1: Show selected part of the scene (from min_along_track to max_along_track)
 #2: Create full resolution image of entire frame and coord/times txt files
 
-srun $HOME"/v94_executables/make_figure" $csarp_folder $segment $frame $min_depth $max_depth $max_length $min_along_track $max_along_track $output_folder $plot_option
+srun $HOME"/v94_executables/make_figure" $csarp_folder $segment $frame $min_depth $max_depth $max_length $min_along_track $max_along_track $output_folder $plot_option $shift
 exit
