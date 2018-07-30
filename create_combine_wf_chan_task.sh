@@ -17,15 +17,15 @@ LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${MCRROOT}/sys/os/glnxa64
 LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${MCRROOT}/sys/opengl/lib/glnxa64
 
 #Choose this, if all frames listed in parameters txt file should be processed
-frm=$(cat ${2} | awk '{if ($3== '01' && $4== '01') print $0}' | awk -v line=$SLURM_ARRAY_TASK_ID '{if (NR== line) print $1}')
-chunk=$(cat ${2} | awk '{if ($3== '01' && $4== '01') print $0}' | awk -v line=$SLURM_ARRAY_TASK_ID '{if (NR== line) print $2}')
+frm=$(cat ${3} | awk '{if ($3== '01' && $4== '01') print $0}' | awk -v line=$SLURM_ARRAY_TASK_ID '{if (NR== line) print $1}')
+chunk=$(cat ${3} | awk '{if ($3== '01' && $4== '01') print $0}' | awk -v line=$SLURM_ARRAY_TASK_ID '{if (NR== line) print $2}')
 
 #Choose this, if only one frame listed in parameters txt file should be processed
 #frm=015
-#chunk=$(cat ${2} | awk -v frm=$frm '{if ($1== frm && $3== '01' && $4== '01') print $0}' | awk -v line=$SLURM_ARRAY_TASK_ID '{if (NR== line) print $2}')
+#chunk=$(cat ${3} | awk -v frm=$frm '{if ($1== frm && $3== '01' && $4== '01') print $0}' | awk -v line=$SLURM_ARRAY_TASK_ID '{if (NR== line) print $2}')
 
 echo "FRAME: "$frm 
 echo "CHUNK: "$chunk
 
-srun $HOME"/v94_executables/combine_wf_chan_ollie" $1 $frm $chunk
+srun $HOME"/v94_executables/combine_wf_chan_task_ollie" $1 $2 $frm $chunk
 exit
