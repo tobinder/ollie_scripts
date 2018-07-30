@@ -18,8 +18,8 @@ LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${MCRROOT}/sys/os/glnxa64
 LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${MCRROOT}/sys/opengl/lib/glnxa64
 
 task_id=$(cat $3 | awk -v line=$SLURM_ARRAY_TASK_ID '{if (NR== line) print $1}')
-frm=$(cat 'qlook_'${task_id}'.out' | grep 'FRAME:' | awk -F ':' '{ print $2 }')
-brk=$(cat 'qlook_'${task_id}'.out' | grep 'CHUNK:' | awk -F ':' '{ print $2 }')
+frm=$(cat ${HOME}'/qlook_'${task_id}'.out' | grep 'FRAME:' | awk -F ':' '{ print $2 }')
+brk=$(cat ${HOME}'/qlook_'${task_id}'.out' | grep 'CHUNK:' | awk -F ':' '{ print $2 }')
 
 echo "FRAME: "$frm 
 echo "CHUNK:" $brk
