@@ -13,4 +13,4 @@ nr=$(cat ${file} | awk -v frame=$frame '{if ($3== '01' && $4== '01') print $0}' 
 #frame=011
 #nr=$(cat ${file} | awk -v frame=$frame '{if ($1== frame && $3== '01' && $4== '01') print $0}' | wc -l)
 
-sbatch -J 'comb_run2' --array=1-$nr%100 --output=$HOME/combine_%A_%a.out ./create_combine_wf_chan_task.sh $static_param $dynamic_param $file
+sbatch -J 'comb_run1' --array=1-$nr%100 --output=$HOME/combine_%A_%a.out ./create_combine_wf_chan_task.sh $static_param $dynamic_param $file

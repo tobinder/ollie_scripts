@@ -5,7 +5,7 @@ segment=
 static_param=$HOME'/jobs/csarp_'$date'_'$segment'_static_param.mat'
 dynamic_param=$HOME'/jobs/csarp_'$date'_'$segment'_dynamic_param.mat'
 file_tmp="failed_combine_jobs_tmp.txt"
-counter='run2'
+counter='run1'
 
 n_jobs=$(sudo get_my_jobs.sh | grep 'comb_'$counter | wc -l)
 n_completed=$(sudo get_my_jobs.sh | grep 'comb_'$counter | grep 'COMPLETED' | wc -l)
