@@ -30,7 +30,7 @@ ch22=0
 ch23=0
 ch24=0
 
-for ((i=4;i<=$#;i++))
+for ((i=5;i<=$#;i++))
 do
     if [ ${!i} == 1 ]; then ch1=1; fi
     if [ ${!i} == 2 ]; then ch2=1; fi
@@ -85,5 +85,5 @@ do
         ch24=1;
     fi
 done
-eval $HOME"/v94_executables/change_steady_param_qlook" $1 $2 $3 $ch1 $ch2 $ch3 $ch4 $ch5 $ch6 $ch7 $ch8 $ch9 $ch10 $ch11 $ch12 $ch13 $ch14 $ch15 $ch16 $ch17 $ch18 $ch19 $ch20 $ch21 $ch22 $ch23 $ch24
+eval $HOME"/v94_executables/change_static_param_combine" $1 $2 $3 $4 $ch1 $ch2 $ch3 $ch4 $ch5 $ch6 $ch7 $ch8 $ch9 $ch10 $ch11 $ch12 $ch13 $ch14 $ch15 $ch16 $ch17 $ch18 $ch19 $ch20 $ch21 $ch22 $ch23 $ch24
 exit
